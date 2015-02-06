@@ -1,0 +1,13 @@
+Proteins are from Salmonella enterica
+
+1st protein: ATP syntase SpaL
+
+2nd protein: Antigen presentation protein SpaN
+
+3rd protein: type III secretion system protein SpaP
+
+4th protein: type III secretion system protein SpaR
+
+5th protein: type III secretion system protein SpaO
+
+6th protein: type III secretion system protein SpaS
