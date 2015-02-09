@@ -3,9 +3,7 @@
 Created on Sun Feb  2 11:24:42 2014
 
 @author: Rocco DiVerdi
-
 """
-
 # you may find it useful to import these variables
     #(although you are not required to use them)
 from amino_acids import aa, codons, aa_table
@@ -102,8 +100,8 @@ def rest_of_ORF(dna):
     ''
     """
     ReadSequence = ''
+    stop_codons = ['TAG', 'TGA', 'TAA']
     for i in range(0, len(dna), 3):
-        stop_codons = ['TAG', 'TGA', 'TAA']
         if dna[i:i+3] in stop_codons:
             return dna[:i]
     return dna
@@ -277,7 +275,6 @@ def gene_finder(dna):
         gene_finder("ATGCCCGCTTT")
         ['MPA']
     """
-
     random_trials = 1500
     threshold = len(longest_ORF_noncoding(dna, random_trials))
 
@@ -289,6 +286,16 @@ def gene_finder(dna):
     return Proteins
 
 
-if __name__ == "__main__":
+def run_doctest():
     import doctest
     doctest.testmod()
+
+
+def find_salmonella_gene():
+    dna = load_seq("./data/X73525.fa")
+    print gene_finder(dna)
+
+
+if __name__ == "__main__":
+    run_doctest()
+    find_salmonella_gene()

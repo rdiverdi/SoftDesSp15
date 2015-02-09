@@ -11,3 +11,6 @@ Proteins are from Salmonella enterica
 5th protein: type III secretion system protein SpaO
 
 6th protein: type III secretion system protein SpaS
+
+All of these are part of the secretions system of Salmonella which assists the
+barcerium in infecting host cells. 
