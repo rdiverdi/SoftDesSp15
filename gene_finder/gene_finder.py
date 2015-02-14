@@ -259,8 +259,16 @@ def coding_strand_to_AA(dna):
         AAs += aa_table[dna[i-3:i]]
     return AAs
 
+<<<<<<< HEAD
 
 def gene_finder(dna):
+=======
+def gene_finder(dna):
+    """ Returns the amino acid sequences that are likely coded by the specified dna
+        
+        dna: a DNA sequence
+        returns: a list of all amino acid sequences coded by the sequence dna.
+>>>>>>> 922a6e32441860ab0413630f74531e6e47a16a7c
     """
     Returns the amino acid sequences coded by all genes that have an ORF
     larger than the specified threshold.
