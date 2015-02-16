@@ -65,9 +65,9 @@ def evaluate_random_function(f, x, y):
     elif f[0] == 'avg':
         return (evaluate_random_function(f[1], x, y) + evaluate_random_function(f[2], x, y)) / 2
     elif f[0] == 'fun_func':
-        a = abs(evaluate_random_function(f[1], x, y))
-        b = abs(evaluate_random_function(f[2], x, y))
-        return math.exp(-10 * (a + 1)) - math.exp(-4 * (b + 1))
+        a = evaluate_random_function(f[1], x, y)
+        b = evaluate_random_function(f[2], x, y)
+        return math.exp(-50 * (a + 1)) - math.exp(-1 * (b + 1))
     return 'Error: not a valid function'
 
 
@@ -94,7 +94,6 @@ def remap_interval(val, in_start, in_end, out_start, out_end):
         >>> remap_interval(5, 4, 6, 1, 2)
         1.5
     """
-    
     val = float(val)  # stupid python
     percent = (val - in_start) / (in_end - in_start)
     return percent * (out_end - out_start) + out_start
@@ -125,9 +124,9 @@ def generate_art(filename, x_size=350, y_size=350):
         filename: string filename for image (should be .png)
         x_size, y_size: optional args to set image dimensions (default: 350)
     """
-    red_function = build_random_function(5, 9)
-    green_function = build_random_function(10, 15)
-    blue_function = build_random_function(4, 7)
+    red_function = build_random_function(3, 5)
+    green_function = build_random_function(3, 5)
+    blue_function = build_random_function(3, 5)
 
     # Create image and loop over all pixels
     im = Image.new("RGB", (x_size, y_size))
@@ -152,7 +151,8 @@ if __name__ == '__main__':
     # Create some computational art!
     # TODO: Un-comment the generate_art function call after you
     #       implement remap_interval and evaluate_random_function
-    generate_art("myart.png")
+    for i in range(31, 51):
+        generate_art("picture%d.png" %i)
 
     # Test that PIL is installed correctly
     # TODO: Comment or remove this function call after testing PIL install
