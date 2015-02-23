@@ -145,12 +145,7 @@ def generate_art(x_size=350, y_size=350):
                         color_map(evaluate_random_function(blue_function, x, y, t))
                         )
 
-        if k < 10:
-            im.save("3frame00%d.png" %k)
-        elif k < 100:
-            im.save("3frame0%d.png" %k)
-        else:
-            im.save("3frame%d.png" %k)
+        im.save("3frame%0d.png" %(k+1)
 
 
 if __name__ == '__main__':
