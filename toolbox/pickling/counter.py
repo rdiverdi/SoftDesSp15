@@ -32,17 +32,15 @@ def update_counter(file_name, reset=False):
     """
     if reset or not exists(file_name):
         f = open(file_name, 'w')
-        f.write(dumps(1))
-        f.close
-        return 1
+        count = 1
     else:
         f = open(file_name, 'r+')
         count = loads(f.read())
         count += 1
         f.seek(0,0)
-        f.write(dumps(count))
-        f.close
-        return count
+    f.write(dumps(count))
+    f.close
+    return count
 
 
 if __name__ == '__main__':
