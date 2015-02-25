@@ -1,3 +1,5 @@
 old_gene_finder.py
 *.pyc
 *.py~
+computational_art/*
+gene_finder/run_gene_finder.py
