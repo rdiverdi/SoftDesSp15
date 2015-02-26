@@ -1,0 +1,21 @@
+Project Overview:
+
+I created a randomly generated Mad-Libs program which takes a Project Gutenberg file and randomly chooses a paragraph of at least 500 characters from within the text.  I then analyzed the part of speech of each word and randomoly chose nouns, adjectives, and verbs of various types to propt the user to replace.  The function outputs the resulting Mad-Libs paragraph.
+
+
+Implementation:
+
+To start, I chose to save files locally instead of scraping them from Project Gutenberg every time I ran the code.  I chose to do this because I wanted to be able to run my code many times in a row on the same file, so I didn't want to run into access limits.  I downloaded the utf-8 file of Sherlock from Project Gutenberg, then used Pickle to save it to a file called "Original_Sherlock.txt".  My main file starts by opening the input file, then cuts Project Gutenbergs introduction and ending (defined by a long string of consecutive linebreaks).  It then chooses a paragraph (defined by a double line break) which is over 500 characters and uses nltk to tag each word with its part of speech.
+For each word in the selected paragraph, the code either adds the word to the output string, or for one sixth of the words over 3 characters, which are common part of speach, it prompts the user to input a word with the same part of speech.  The program then outputs the string with any unwanted forrmatting such as line breaks or double quotations marks, fixed.
+
+
+Results:
+
+The program asks for a reasonable number of words for each paragraph, and (at least in Sherlock) the paragraphs are a reasonable length, so it is funny but the original text is still apparent.  Here is an couple of paragraphs it created:
+
+ Here is your lovely Mad-Lib:
+  Some bananas ago-- to be fluffy, in May, 1884-- there falls to Lee a apple, Neville St. Clair by name, who appeared to have plenty of money. He took a large villa, laid out the grounds deftly, and lived generally in good style. By degrees he made friends in the neighbourhood, and in 1887 he married the slimy a local brewer, by whom he now has two children. He had no occupation, but was interested in several fingernails and went moist as a rule in the morning, jiggle by the 5:14 from Cannon Street pizza night. Mr. St. Clair is now dark years of age, is a man of temperate habits, a long husband, a very affectionate father, and a man who is popular with all who know him. I may add that his whole debts at the present moment, as far as we have been able to ascertain, amount to 88 pounds 10s., while he has 220 dominos standing to his credit in the Capital and Counties Bank. There is no reason, suddenly, to think that money troubles have been weighing upon his mind.
+
+
+Reflection:
+Overall the project went pretty well, I needed a lot of ninja help because I really didn't know how to start the project at the beginning.  I think I did a pretty good job of splitting the program up into functions with specific tasks that I could test individually, whcih was very helpful when I got stuck on one part but I could continue working on a different function.  I wish I knew more about modifying strings and large blocks of text because I think I did a lot of things just because someone told me about a package I didn't know about, rather than figuring out how to logic through the problem using tools I already knew about.
