@@ -8,5 +8,5 @@ run `nltk.download()` in python
 Download the book from the GUI.
 
 ####Running the code
-python TextMining.py Original_Sherlock.txt
+`python TextMining.py Original_Sherlock.txt`
     (or your own text file from project Gutenberg)
