@@ -12,22 +12,25 @@ def draw_face(frame, left, top, width, height):
     black = (150, 20, 150)
     red = (0, 0, 255)
 
-    eye1x = int(left + width/3)
-    eye2x = int(left + 2*width/3)
-    eyey = int(top + height/3)
+    eye1x = int(left + width / 3)
+    eye2x = int(left + 2*width / 3)
+    eyey = int(top + height / 3)
     eye_size = width / 13
+    pupil_offset = eye_size / 4
+
     cv2.circle(frame, (eye1x, eyey), eye_size, white, -1)
     cv2.circle(frame, (eye2x, eyey), eye_size, white, -1)
-    cv2.circle(frame, (eye1x + eye_size/4, eyey + eye_size/8), eye_size/2, black, -1)
-    cv2.circle(frame, (eye2x + eye_size/4, eyey + eye_size/8), eye_size/2, black, -1)
+    cv2.circle(frame, (eye1x + pupil_offset, eyey + pupil_offset/2),
+               eye_size/2, black, -1)
+    cv2.circle(frame, (eye2x + pupil_offset, eyey + pupil_offset/2),
+               eye_size/2, black, -1)
 
     mouthx = int(left + width/2)
     mouthy = int(top + height/2)
     cv2.ellipse(frame, (mouthx, mouthy), (width/4, width/4), 0, 20, 160, red, width/30)
 
 
-
-while(True):
+while True:
     #Capture frame-by-frame
     ret, frame = cap.read()
     faces = face_cascade.detectMultiScale(frame, scaleFactor=1.2, minSize=(20,20))
