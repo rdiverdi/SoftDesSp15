@@ -1,0 +1,6 @@
+
+1. In general, the more data that is used for training, the higher the accuracy of the test.
+
+2/3. With an average of 10 trials, the area just below middle of the curve seemed very noisy, but increasing the number of trials to 100 eliminated most of the noise.  I think this section was most noisy because it was large enough to produce good accuracy in some cases, but small enough that the accuracy was very dependent on how representative the sample it recieved was.
+
+4. Increasing C greatly increases the accuracy, and makes the trendline very obviously approach a plateau.  Decreasing C makes the program run much faster but decreases the accuracy regardless of how much data is used for training.
