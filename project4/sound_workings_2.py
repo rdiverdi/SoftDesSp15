@@ -1,8 +1,9 @@
-""" Detect Colors? """
+""" Uses webcam to track a ball and output sound based on ball position """
 
-import cv2
 import numpy as np
-import imghdr
+
+import pygame
+import cv2
 
 #general functions
 def avg(lis):
@@ -14,21 +15,6 @@ def w_avg(lis, weights):
     avg_w = avg(weights)
     w_lis = [lis[i] * weights[i] / avg_w for i in range(len(lis))]
     return avg(w_lis)
-
-#conversion functions
-def pos_to_note(r):
-    max_x = 600.
-    min_note = 1
-    note_range = 19
-    scaled_x = 1 - r[0] / max_x
-    return int(min_note + (note_range * scaled_x))
-
-def pos_to_vol(r):
-    max_y = 500.
-    min_vol = 0
-    vol_range = 5
-    scaled_y = 1 - r[1] / max_y
-    return min_vol + (vol_range * scaled_y)
 
 #openCv stuff
 class Ball(object):
@@ -54,7 +40,7 @@ class Ball(object):
             with only black and the desired color
         """
         HSV = cv2.COLOR_BGR2HSV
-        kernel = np.ones((21, 21), 'uint8')
+        kernel = np.ones((15, 15), 'uint8')
 
         gray_image = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY, 3)
 
@@ -62,6 +48,7 @@ class Ball(object):
         inRange_pic = cv2.inRange(hsv_pic, self.min_color, self.max_color)
         eroded_pic = cv2.erode(inRange_pic, kernel)
         dilated_pic = cv2.dilate(eroded_pic, kernel)
+
 
         #res_pic = self.frame - res_pic
         blured_pic = cv2.medianBlur(dilated_pic,5)
@@ -106,27 +93,54 @@ class Ball(object):
         np.set_printoptions(threshold=np.inf)
         cv2.imshow('frame', cv2.flip(self.filtered, 1))
 
+class Note(object):
+    def __init__(self):
+        self.sound = ["blues_note%02d.wav" % i for i in range(19)]
+
+    #conversion functions
+    def get_pitch(self, x):
+        max_x = 600.
+        min_note = 0
+        note_range = 18
+        scaled_x = 1 - x / max_x
+        return int(min_note + (note_range * scaled_x))
+
+    def get_vol(self, y):
+        max_y = 500.
+        min_vol = 0
+        vol_range = 1
+        scaled_y = 1 - y / max_y
+        return min_vol + (vol_range * scaled_y)
+
+    def playanote(self, pitch, vol):
+
+        pygame.mixer.music.set_volume(vol)
+
+        pygame.mixer.music.load(self.sound[pitch])
+        pygame.mixer.music.play()
+
 
 if __name__ == "__main__":
+    pygame.init()
     #purple
-    min_HSV_color = (90, 50, 50)
-    max_HSV_color = (140, 255, 255)
+    min_HSV_color = (100, 0, 0)
+    max_HSV_color = (150, 255, 255)
 
-    #yellow
-    #min_HSV_color = (20, 40, 50)
-    #max_HSV_color = (60, 255, 255)
 
     ball = Ball(min_HSV_color, max_HSV_color)
+    note = Note()
 
     while True:
 
         ball.position()
+        pitch = note.get_pitch(ball.x)
+        vol = note.get_vol(ball.y)
+        note.playanote(pitch, vol)
         ball.draw()
-        ball.print_pos()
+        #ball.print_pos()
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-
 
 
     #release Capture
