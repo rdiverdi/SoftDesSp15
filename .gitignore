@@ -3,3 +3,5 @@ old_gene_finder.py
 *.py~
 computational_art/*
 gene_finder/run_gene_finder.py
+/project4/sound_workings_double.py
+/project4/blues_note*

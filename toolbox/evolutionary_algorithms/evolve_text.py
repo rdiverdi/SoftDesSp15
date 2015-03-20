@@ -92,8 +92,6 @@ class Message(list):
 # Genetic operators
 #-----------------------------------------------------------------------------
 
-# TODO: Implement levenshtein_distance function (see Day 9 in-class exercises)
-# HINT: Now would be a great time to implement memoization if you haven't
 
 def evaluate_text(message, goal_text, verbose=VERBOSE):
     """
@@ -101,6 +99,25 @@ def evaluate_text(message, goal_text, verbose=VERBOSE):
     between the Message and the goal_text as a length 1 tuple.
     If verbose is True, print each Message as it is evaluated.
     """
+    known = {}
+
+    def levenshtein_distance(s1,s2):
+        """ Computes the Levenshtein distance between two input strings """
+        if len(s1) == 0:
+            return len(s2)
+        if len(s2) == 0:
+            return len(s1)
+        key = (s1, s2)
+        if key in known:
+            return known[key]
+        is_notequal = int(s1[0] != s2[0])
+        l_endings = levenshtein_distance(s1[1:],s2[1:])
+        l_end1 = levenshtein_distance(s1[1:],s2)
+        l_end2 = levenshtein_distance(s1,s2[1:])
+        dist = min([is_notequal + l_endings, 1+l_end1, 1+l_end2])
+        known[key] = dist
+        return dist
+
     distance = levenshtein_distance(message.get_text(), goal_text)
     if verbose:
         print "{msg:60}\t[Distance: {dst}]".format(msg=message, dst=distance)
@@ -121,10 +138,18 @@ def mutate_text(message, prob_ins=0.05, prob_del=0.05, prob_sub=0.05):
     """
 
     if random.random() < prob_ins:
-        # TODO: Implement insertion-type mutation
-        pass
+        index = random.randint(0, len(message)-1)
+        letter = random.choice(VALID_CHARS)
+        message.insert(index, letter)
 
-    # TODO: Also implement deletion and substitution mutations
+    if random.random() < prob_del:
+        index = random.randint(0, len(message)-1)
+        del message[index]
+
+    if random.random() < prob_sub:
+        index = random.randint(0, len(message)-1)
+        new_letter = random.choice(VALID_CHARS)
+        message[index] = new_letter
     # HINT: Message objects inherit from list, so they also inherit
     #       useful list methods
     # HINT: You probably want to use the VALID_CHARS global variable
@@ -183,7 +208,7 @@ def evolve_string(text):
     # (See: http://deap.gel.ulaval.ca/doc/dev/api/algo.html for details)
     pop, log = algorithms.eaSimple(pop,
                                    toolbox,
-                                   cxpb=0.5,    # Prob. of crossover (mating)
+                                   cxpb=0.7,    # Prob. of crossover (mating)
                                    mutpb=0.2,   # Probability of mutation
                                    ngen=500,    # Num. of generations to run
                                    stats=stats)

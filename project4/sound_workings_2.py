@@ -123,9 +123,12 @@ class Note(object):
 if __name__ == "__main__":
     pygame.init()
     #purple
-    min_HSV_color = (100, 0, 0)
-    max_HSV_color = (150, 255, 255)
+    #min_HSV_color = (90, 5, 0)
+    #max_HSV_color = (170, 255, 255)
 
+    #green
+    min_HSV_color = (50, 20, 0)
+    max_HSV_color = (80, 255, 255)
 
     ball = Ball(min_HSV_color, max_HSV_color)
     note = Note()

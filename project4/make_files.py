@@ -19,7 +19,7 @@ def add_note(out, instr, key_num, duration, bpm, volume):
 
 from Nsound import *
 sampling_rate = 4400.0 #sampling rate for .wav file
-Bass = GuitarBass(sampling_rate)    # use an Bass as the instrument
+Bass = OrganPipe(sampling_rate)    # use an Bass as the instrument
 solo = AudioStream(sampling_rate, 1)
 
 """ these are the piano key numbers for a 3 octave blues scale in A
@@ -27,7 +27,7 @@ solo = AudioStream(sampling_rate, 1)
 blues_scale = [25, 28, 30, 31, 32, 35, 37, 40, 42, 43, 44, 47, 49, 52, 54, 55, 56, 59, 61]
 
 bpm = 45
-max_volume = 10
+max_volume = 1
 
 for num, note in enumerate(blues_scale):
     add_note(solo, Bass, note, 1, bpm, max_volume)
