@@ -150,9 +150,6 @@ def mutate_text(message, prob_ins=0.05, prob_del=0.05, prob_sub=0.05):
         index = random.randint(0, len(message)-1)
         new_letter = random.choice(VALID_CHARS)
         message[index] = new_letter
-    # HINT: Message objects inherit from list, so they also inherit
-    #       useful list methods
-    # HINT: You probably want to use the VALID_CHARS global variable
 
     return (message, )   # Length 1 tuple, required by DEAP
 
